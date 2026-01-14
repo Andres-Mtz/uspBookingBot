@@ -75,7 +75,9 @@ class Class:
 
         # Check time slot
         class_time = self.start_time.strftime("%H:%M")
-        if not (preferences.time_slots.start <= class_time <= preferences.time_slots.end):
+        if not (
+            preferences.time_slots.start <= class_time <= preferences.time_slots.end
+        ):
             return False
 
         return True

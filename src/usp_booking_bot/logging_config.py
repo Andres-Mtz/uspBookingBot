@@ -12,7 +12,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def setup_logging(log_level: str = "INFO", log_file: str = "logs/booking_bot.log") -> None:
+def setup_logging(
+    log_level: str = "INFO", log_file: str = "logs/booking_bot.log"
+) -> None:
     """Configure structured logging.
 
     Args:
@@ -34,7 +36,11 @@ def setup_logging(log_level: str = "INFO", log_file: str = "logs/booking_bot.log
             structlog.processors.StackInfoRenderer(),
             structlog.dev.set_exc_info,
             structlog.processors.TimeStamper(fmt="iso"),
-            structlog.dev.ConsoleRenderer() if sys.stderr.isatty() else structlog.processors.JSONRenderer(),
+            (
+                structlog.dev.ConsoleRenderer()
+                if sys.stderr.isatty()
+                else structlog.processors.JSONRenderer()
+            ),
         ],
         wrapper_class=structlog.make_filtering_bound_logger(numeric_level),
         context_class=dict,

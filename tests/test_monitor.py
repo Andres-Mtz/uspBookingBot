@@ -1,10 +1,8 @@
 """Tests for monitor module."""
 
-from datetime import datetime, timedelta
 from unittest.mock import MagicMock, AsyncMock
 
 import pytest
-from aiolimiter import AsyncLimiter
 
 from usp_booking_bot.auth import USCAuth
 from usp_booking_bot.config import Config, UserPreferences, TimeSlot, MonitoringConfig
@@ -131,9 +129,7 @@ async def test_monitor_book_class():
     mock_response = MagicMock()
     mock_response.status = 201
 
-    mock_auth.session.post = MagicMock(
-        return_value=AsyncMock().__aenter__.return_value
-    )
+    mock_auth.session.post = MagicMock(return_value=AsyncMock().__aenter__.return_value)
     mock_auth.session.post.return_value.__aenter__.return_value = mock_response
 
     config = Config(

@@ -90,7 +90,8 @@ class BookingScheduler:
             if "slot_found" in self.config.notifications.notify_on:
                 classes_info = "\n".join(
                     [
-                        f"- {cls.name} at {cls.location} ({cls.start_time.strftime('%Y-%m-%d %H:%M')})"
+                        f"- {cls.name} at {cls.location} "
+                        f"({cls.start_time.strftime('%Y-%m-%d %H:%M')})"
                         for cls in matching_classes
                     ]
                 )
@@ -106,14 +107,20 @@ class BookingScheduler:
                 ]:
                     success = await self.monitor.book_class(class_obj)
 
-                    if success and "booking_success" in self.config.notifications.notify_on:
+                    if (
+                        success
+                        and "booking_success" in self.config.notifications.notify_on
+                    ):
                         await self.notifier.notify(
                             "Class Booked Successfully",
                             f"Successfully booked: {class_obj.name}\n"
                             f"Location: {class_obj.location}\n"
                             f"Time: {class_obj.start_time.strftime('%Y-%m-%d %H:%M')}",
                         )
-                    elif not success and "booking_failure" in self.config.notifications.notify_on:
+                    elif (
+                        not success
+                        and "booking_failure" in self.config.notifications.notify_on
+                    ):
                         await self.notifier.notify(
                             "Booking Failed",
                             f"Failed to book: {class_obj.name}\n"

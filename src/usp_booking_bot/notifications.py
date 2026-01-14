@@ -61,7 +61,9 @@ class EmailNotifier(NotificationProvider):
     async def send(self, subject: str, message: str) -> bool:
         """Send email notification."""
         if not all([self.username, self.password, self.recipient]):
-            logger.warning("Email credentials not configured, skipping email notification")
+            logger.warning(
+                "Email credentials not configured, skipping email notification"
+            )
             return False
 
         try:

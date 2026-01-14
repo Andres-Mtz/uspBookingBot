@@ -7,7 +7,6 @@ import pytest
 import yaml
 
 from usp_booking_bot.config import (
-    Config,
     load_config,
     TimeSlot,
     UserPreferences,
