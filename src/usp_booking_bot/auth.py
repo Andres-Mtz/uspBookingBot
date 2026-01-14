@@ -1,7 +1,7 @@
 """Authentication and session management for Urban Sports Club."""
 
 import os
-from typing import Optional
+from typing import Optional, Dict
 
 import aiohttp
 import structlog
@@ -124,7 +124,7 @@ class USCAuth:
             logger.error("Network error during token refresh", error=str(e))
             raise AuthenticationError(f"Network error: {e}") from e
 
-    def get_headers(self) -> dict[str, str]:
+    def get_headers(self) -> Dict[str, str]:
         """Get authorization headers for API requests.
 
         Returns:

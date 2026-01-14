@@ -12,8 +12,8 @@ from usp_booking_bot.scheduler import BookingScheduler
 logger = structlog.get_logger(__name__)
 
 
-async def main() -> None:
-    """Main application entry point."""
+async def async_main() -> None:
+    """Async main application entry point."""
     try:
         # Load configuration
         config = load_config()
@@ -37,5 +37,10 @@ async def main() -> None:
         sys.exit(1)
 
 
+def main() -> None:
+    """Synchronous entry point for console script."""
+    asyncio.run(async_main())
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
