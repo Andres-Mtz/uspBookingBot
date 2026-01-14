@@ -10,7 +10,7 @@ from typing import Optional
 
 import aiosmtplib
 import structlog
-from aiohttp import ClientSession
+from discord_webhook import AsyncDiscordWebhook
 from telegram import Bot
 from telegram.error import TelegramError
 
@@ -150,20 +150,21 @@ class DiscordNotifier(NotificationProvider):
             return False
 
         try:
-            async with ClientSession() as session:
-                payload = {
-                    "content": f"**{subject}**\n\n{message}",
-                }
-                async with session.post(self.webhook_url, json=payload) as response:
-                    if response.status in (200, 204):
-                        logger.info("Discord notification sent", subject=subject)
-                        return True
-                    else:
-                        logger.error(
-                            "Discord notification failed",
-                            status=response.status,
-                        )
-                        return False
+            webhook = AsyncDiscordWebhook(
+                url=self.webhook_url,
+                content=f"**{subject}**\n\n{message}",
+            )
+            response = await webhook.execute()
+
+            if response.status_code in (200, 204):
+                logger.info("Discord notification sent", subject=subject)
+                return True
+            else:
+                logger.error(
+                    "Discord notification failed",
+                    status=response.status_code,
+                )
+                return False
         except Exception as e:
             logger.error("Failed to send Discord notification", error=str(e))
             return False
