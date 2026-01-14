@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  usp-booking-bot:
+    build: .
+    container_name: usp-booking-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
