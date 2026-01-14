@@ -8,9 +8,6 @@ from pathlib import Path
 import structlog
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
-
 
 def setup_logging(
     log_level: str = "INFO", log_file: str = "logs/booking_bot.log"
@@ -21,6 +18,9 @@ def setup_logging(
         log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
         log_file: Path to log file.
     """
+    # Load environment variables when setting up logging
+    load_dotenv()
+
     # Create logs directory if it doesn't exist
     log_path = Path(log_file)
     log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -60,8 +60,3 @@ def setup_logging(
     file_handler.setLevel(numeric_level)
     file_handler.setFormatter(logging.Formatter("%(message)s"))
     logging.getLogger().addHandler(file_handler)
-
-
-# Set up logging with defaults
-log_level = os.getenv("LOG_LEVEL", "INFO")
-setup_logging(log_level)
