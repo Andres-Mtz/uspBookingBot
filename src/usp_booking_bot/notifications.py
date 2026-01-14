@@ -1,14 +1,16 @@
 """Notification system for booking events."""
 
+from __future__ import annotations
+
 import os
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from typing import Optional
 
 import aiosmtplib
 import structlog
 from aiohttp import ClientSession
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from telegram import Bot
 from telegram.error import TelegramError
 
@@ -172,7 +174,7 @@ class NotificationManager:
 
     def __init__(self) -> None:
         """Initialize notification manager."""
-        self.providers: List[NotificationProvider] = []
+        self.providers: list[NotificationProvider] = []
 
     def add_provider(self, provider: NotificationProvider) -> None:
         """Add a notification provider.

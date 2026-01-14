@@ -10,7 +10,7 @@ setup(
     author_email="your.email@example.com",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    python_requires=">=3.11",
+    python_requires=">=3.9",
     install_requires=[
         "aiohttp>=3.9.0",
         "pydantic>=2.5.0",

@@ -1,7 +1,9 @@
 """Configuration management module for USP Booking Bot."""
 
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import yaml
 from pydantic import BaseModel, Field, field_validator
@@ -17,16 +19,16 @@ class TimeSlot(BaseModel):
 class UserPreferences(BaseModel):
     """User preferences for class booking."""
 
-    locations: List[str] = Field(default_factory=list)
-    activities: List[str] = Field(default_factory=list)
-    days_of_week: List[int] = Field(default_factory=list)
+    locations: list[str] = Field(default_factory=list)
+    activities: list[str] = Field(default_factory=list)
+    days_of_week: list[int] = Field(default_factory=list)
     time_slots: TimeSlot
     auto_book: bool = True
     max_bookings_per_week: int = 3
 
     @field_validator("days_of_week")
     @classmethod
-    def validate_days(cls, v: List[int]) -> List[int]:
+    def validate_days(cls, v: list[int]) -> list[int]:
         """Validate days of week are between 0-6."""
         if not all(0 <= day <= 6 for day in v):
             raise ValueError("Days of week must be between 0 (Monday) and 6 (Sunday)")
@@ -61,7 +63,7 @@ class NotificationsConfig(BaseModel):
     email: NotificationChannel = Field(default_factory=NotificationChannel)
     telegram: NotificationChannel = Field(default_factory=NotificationChannel)
     discord: NotificationChannel = Field(default_factory=NotificationChannel)
-    notify_on: List[str] = Field(
+    notify_on: list[str] = Field(
         default_factory=lambda: [
             "slot_found",
             "booking_success",
@@ -109,6 +111,6 @@ def load_config(config_path: Optional[Path] = None) -> Config:
         raise FileNotFoundError(f"Configuration file not found: {config_path}")
 
     with open(config_path, "r") as f:
-        config_dict: Dict[str, Any] = yaml.safe_load(f)
+        config_dict: dict[str, Any] = yaml.safe_load(f)
 
     return Config(**config_dict)

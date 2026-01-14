@@ -1,8 +1,10 @@
 """Class monitoring and booking functionality."""
 
+from __future__ import annotations
+
 import asyncio
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import aiohttp
 import structlog
@@ -17,7 +19,7 @@ logger = structlog.get_logger(__name__)
 class Class:
     """Represents a sports class."""
 
-    def __init__(self, data: Dict[str, Any]) -> None:
+    def __init__(self, data: dict[str, Any]) -> None:
         """Initialize class from API data.
 
         Args:
@@ -119,7 +121,7 @@ class ClassMonitor:
         self,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
-    ) -> List[Class]:
+    ) -> list[Class]:
         """Fetch available classes from API.
 
         Args:
@@ -163,7 +165,7 @@ class ClassMonitor:
                 logger.error("Network error fetching classes", error=str(e))
                 return []
 
-    async def find_matching_classes(self) -> List[Class]:
+    async def find_matching_classes(self) -> list[Class]:
         """Find classes matching user preferences.
 
         Returns:
