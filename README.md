@@ -4,16 +4,16 @@ An automated Python application that monitors Urban Sports Club (USC) classes an
 
 ## Features
 
-- 🔐 **Secure Authentication**: Session management with environment variables
-- 📅 **Async Scheduler**: Periodic monitoring using APScheduler
-- 🎯 **Smart Booking**: Auto-book classes matching your preferences (location, activity, time)
-- 📧 **Multi-Channel Notifications**: Email, Telegram, and Discord support
-- ⚙️ **YAML Configuration**: Easy-to-configure preferences
-- 🚦 **Rate Limiting**: Respects API limits with aiolimiter
-- 📊 **Structured Logging**: JSON and console logging with structlog
-- 🐳 **Docker Support**: Containerized deployment ready
-- 🔒 **Type Safe**: Full type hints with mypy compatibility
-- ✅ **PEP8 Compliant**: Follows Python best practices
+- **Secure Authentication**: Session management with environment variables
+- **Async Scheduler**: Periodic monitoring using APScheduler
+- **Smart Booking**: Auto-book classes matching your preferences (location, activity, time)
+- **Multi-Channel Notifications**: Email, Telegram, and Discord support
+- **YAML Configuration**: Easy-to-configure preferences
+- **Rate Limiting**: Respects API limits with aiolimiter
+- **Structured Logging**: JSON and console logging with structlog
+- **Docker Support**: Containerized deployment ready
+- **Type Safe**: Full type hints with mypy compatibility
+- **PEP8 Compliant**: Follows Python best practices
 
 ## Project Structure
 
