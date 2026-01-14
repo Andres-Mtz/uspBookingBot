@@ -15,9 +15,6 @@ from .constants import (
     USC_REFRESH_ENDPOINT,
 )
 
-# Load environment variables
-load_dotenv()
-
 logger = structlog.get_logger(__name__)
 
 
@@ -43,6 +40,9 @@ class USCAuth:
             password: User password. If None, reads from USC_PASSWORD env var.
             session: Optional aiohttp session. If None, creates new session.
         """
+        # Load environment variables
+        load_dotenv()
+
         self.email = email or os.getenv("USC_EMAIL")
         self.password = password or os.getenv("USC_PASSWORD")
 
