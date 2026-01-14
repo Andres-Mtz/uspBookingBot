@@ -9,6 +9,12 @@ import aiohttp
 import structlog
 from dotenv import load_dotenv
 
+from .constants import (
+    USC_API_BASE_URL,
+    USC_LOGIN_ENDPOINT,
+    USC_REFRESH_ENDPOINT,
+)
+
 # Load environment variables
 load_dotenv()
 
@@ -23,9 +29,6 @@ class AuthenticationError(Exception):
 
 class USCAuth:
     """Urban Sports Club authentication and session management."""
-
-    BASE_URL = "https://urbansportsclub.com/api"
-    LOGIN_ENDPOINT = "/auth/login"
 
     def __init__(
         self,
@@ -72,7 +75,7 @@ class USCAuth:
 
         try:
             async with self.session.post(
-                f"{self.BASE_URL}{self.LOGIN_ENDPOINT}",
+                f"{USC_API_BASE_URL}{USC_LOGIN_ENDPOINT}",
                 json={"email": self.email, "password": self.password},
             ) as response:
                 if response.status == 200:
@@ -107,7 +110,7 @@ class USCAuth:
 
         try:
             async with self.session.post(
-                f"{self.BASE_URL}/auth/refresh",
+                f"{USC_API_BASE_URL}{USC_REFRESH_ENDPOINT}",
                 json={"refresh_token": self._refresh_token},
             ) as response:
                 if response.status == 200:

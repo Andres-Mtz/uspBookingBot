@@ -12,6 +12,7 @@ from aiolimiter import AsyncLimiter
 
 from .auth import USCAuth
 from .config import Config, UserPreferences
+from .constants import USC_API_BASE_URL, USC_CLASSES_ENDPOINT, USC_BOOKINGS_ENDPOINT
 
 logger = structlog.get_logger(__name__)
 
@@ -95,8 +96,6 @@ class Class:
 class ClassMonitor:
     """Monitors classes for available slots."""
 
-    BASE_URL = "https://urbansportsclub.com/api"
-
     def __init__(
         self,
         auth: USCAuth,
@@ -144,7 +143,7 @@ class ClassMonitor:
                 }
 
                 async with self.auth.session.get(
-                    f"{self.BASE_URL}/classes",
+                    f"{USC_API_BASE_URL}{USC_CLASSES_ENDPOINT}",
                     headers=self.auth.get_headers(),
                     params=params,
                 ) as response:
@@ -197,7 +196,7 @@ class ClassMonitor:
             for attempt in range(self.config.monitoring.max_retries):
                 try:
                     async with self.auth.session.post(
-                        f"{self.BASE_URL}/bookings",
+                        f"{USC_API_BASE_URL}{USC_BOOKINGS_ENDPOINT}",
                         headers=self.auth.get_headers(),
                         json={"class_id": class_obj.id},
                     ) as response:

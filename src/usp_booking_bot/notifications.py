@@ -174,7 +174,7 @@ class NotificationManager:
 
     def __init__(self) -> None:
         """Initialize notification manager."""
-        self.providers: list[NotificationProvider] = []
+        self._providers: list[NotificationProvider] = []
 
     def add_provider(self, provider: NotificationProvider) -> None:
         """Add a notification provider.
@@ -182,7 +182,7 @@ class NotificationManager:
         Args:
             provider: Notification provider to add.
         """
-        self.providers.append(provider)
+        self._providers.append(provider)
 
     async def notify(self, subject: str, message: str) -> None:
         """Send notification through all configured providers.
@@ -191,9 +191,9 @@ class NotificationManager:
             subject: Notification subject/title.
             message: Notification message body.
         """
-        if not self.providers:
+        if not self._providers:
             logger.warning("No notification providers configured")
             return
 
-        for provider in self.providers:
+        for provider in self._providers:
             await provider.send(subject, message)
