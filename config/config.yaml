@@ -1,0 +1,74 @@
+# Urban Sports Club Booking Bot Configuration
+
+# User Preferences
+preferences:
+  # Preferred locations (list of venue names or IDs)
+  locations:
+    - "Berlin Mitte"
+    - "Berlin Kreuzberg"
+  
+  # Preferred sports/activities
+  activities:
+    - "Yoga"
+    - "Pilates"
+    - "CrossFit"
+  
+  # Preferred days of week (0=Monday, 6=Sunday)
+  days_of_week:
+    - 1  # Tuesday
+    - 3  # Thursday
+    - 5  # Saturday
+  
+  # Preferred time slots (HH:MM format)
+  time_slots:
+    start: "18:00"
+    end: "21:00"
+  
+  # Auto-booking settings
+  auto_book: true
+  max_bookings_per_week: 3
+
+# Monitoring Configuration
+monitoring:
+  # Check interval in minutes
+  check_interval: 5
+  
+  # Days ahead to monitor
+  days_ahead: 7
+  
+  # Retry settings
+  max_retries: 3
+  retry_delay: 5
+
+# Rate Limiting
+rate_limit:
+  # Maximum requests per period
+  max_requests: 10
+  
+  # Period in seconds
+  period: 60
+
+# Notification Channels
+notifications:
+  # Enable/disable notification channels
+  email:
+    enabled: true
+  
+  telegram:
+    enabled: true
+  
+  discord:
+    enabled: false
+  
+  # Notification triggers
+  notify_on:
+    - "slot_found"
+    - "booking_success"
+    - "booking_failure"
+    - "error"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "json"
+  file: "logs/booking_bot.log"
